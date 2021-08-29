@@ -14,7 +14,7 @@
                     <span class="ti-blackboard font-size-50"></span>
                 </div>
                 <div class="py-30 bg-white text-dark">
-                    <div class="font-size-30">1</div>
+                    <div class="font-size-30">{{$total}}</div>
                     <span>Total Room</span>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <span class="ti-link font-size-50"></span>
                 </div>
                 <div class="py-30 bg-white text-dark">
-                    <div class="font-size-30">1/<span class="font-size-18">1</span></div>
+                    <div class="font-size-30">{{$active}}/<span class="font-size-18">{{$total}}</span></div>
                     <span>Active Room</span>
                 </div>
             </div>
@@ -35,7 +35,14 @@
         <div class="col-12">
             <div class="box">
                 <div class="box-header">
-                    <h4 class="box-title">Meeting Room List</h4>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <h4 class="box-title">Meeting Room List</h4>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="{{ route('add-meeting-room') }}" class="btn btn-bold btn-pure btn-info">Add New Meeting Room</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -53,22 +60,34 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $no = 1;
+                            @endphp
+                                @foreach ($data as $item)
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-left text-nowrap">Large Meeting Room</td>
-                                    <td class="text-right">12</td>
-                                    <td class="text-left">Infocus, Screen, Glass board, Sound system, Pencils and memos, Internet connection.</td>
-                                    <td class="text-left">Full Days</td>
-                                    <td class="text-left">All Days</td>
-                                    <td class="text-center text-success"><span class="btn btn-success btn-block btn-rounded">Active</span></td>
+                                    <td class="text-center">{{$no}}</td>
+                                    <td class="text-left text-nowrap">{{$item->name}}</td>
+                                    <td class="text-right">{{$item->capacity}}</td>
+                                    <td class="text-left">{{$item->facility}}</td>
+                                    <td class="text-left">{{ $item->hours_availibility}}</td>
+                                    <td class="text-left">{{$item->days_availibility}}</td>
+                                    <td class="text-center text-success text-lowercase"><span class="btn btn-block btn-rounded 
+                                        {{ $item->status == "ACTIVE" ? 'btn-success' : 'btn-danger'}}    
+                                            ">{{$item->status}}</span></td>
+
                                     <td class="text-center">
-                                        <span data-toggle="modal" data-target="#modal-fill">
-                                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="View">
+                                            <a href="{{route('edit-meeting-room',$item->id)}}" title="View">
                                                 <i class="ti-eye"></i>
                                             </a>
-                                        </span>
+                                        <a href="{{route('delete-meeting-room',$item->id)}}" class="ml-3" title="Delete">
+                                            <i class="ti-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
+                                @php
+                                $no++;
+                            @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -78,11 +97,10 @@
     </div>
 
     {{-- modal here --}}
-    <div class="modal modal-fill fade" data-backdrop="false" id="modal-fill" tabindex="-1" style="z-index: 9999">
+    {{-- <div class="modal modal-fill fade" data-backdrop="false" id="modal-fill" tabindex="-1" style="z-index: 9999">
         <div class="modal-dialog modal-lg"">
             <div class="modal-content" style="max-width: 1024px">
                 <div class="modal-header">
-                    {{-- <h5 class="modal-title">Large Meeting Room	</h5> --}}
                     <button type="button" class="close" style="padding-right: 28px" data-dismiss="modal">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -175,6 +193,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 

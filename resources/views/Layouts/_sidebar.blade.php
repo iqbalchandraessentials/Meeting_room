@@ -20,16 +20,18 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ Request::segment(1) === 'meeting-room' && Request::segment(2) === 'add-new' ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::segment(1) === 'meeting-room' && Request::segment(2) === 'add-new' ? 'active' : '' }}">
                         <a href="{{ url('meeting-room/add-new') }}"><i class="ti-more"></i>Add New</a>
-                    </li>
+                    </li> --}}
                     <li class="{{ Request::segment(1) === 'meeting-room' && Request::segment(2) === null || Request::segment(2) === 'details' ? 'active' : '' }}">
-                        <a href="{{ url('meeting-room') }}">
+                        <a href="{{ route('meeting-room') }}">
                             <i class="ti-more"></i>List Meeting Room
                         </a>
                     </li>
                 </ul>
             </li>
+
+            {{-- facilities --}}
             <li class="treeview {{ Request::segment(1) === 'facilities' ? 'active' : '' }}">
                 <a href="#">
                     <i class="ti-panel"></i>
@@ -39,31 +41,53 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    {{-- <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === 'add-new' ? 'active' : '' }}">
-                        <a href="{{ url('facilities/add-new') }}">
-                            <i class="ti-more"></i>Add New
-                        </a>
-                    </li> --}}
-                    <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === null || Request::segment(2) === 'add-new' ? 'active' : '' }}">
-                        <a href="{{ url('facilities') }}">
+                    <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === 'menu' || Request::segment(2) === 'add-new' ? 'active' : '' }}">
+                        <a href="{{ route('menu-facilities') }}">
                             <i class="ti-more"></i>List Facilities
                         </a>
                     </li>
                     <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === 'categories' ? 'active' : '' }}">
-                        <a href="{{ url('facilities/categories') }}">
+                        <a href="{{ route('category-facilities') }}">
                             <i class="ti-more"></i>Categories
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="header nav-small-cap text-uppercase">MEETING PAGE</li>
+            
+            
+            {{-- foond and bravage --}} 
+            
+            <li class="header nav-small-cap text-uppercase">FOOD & BEVERAGE</li>
+            <li class="treeview {{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === 'menu' || Request::segment(2) === 'categories' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="ti-menu-alt"></i>
+                    <span>Menu</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === 'menu' ? 'active' : '' }}">
+                        <a href="{{ route('menu') }}">
+                            <i class="ti-more"></i>List Menu
+                        </a>
+                    </li>
+                    <li class="{{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === 'categories' ? 'active' : '' }}">
+                        <a href="{{ route('category') }}">
+                            <i class="ti-more"></i>Categories
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            {{-- <li class="header nav-small-cap text-uppercase">MEETING PAGE</li>
             <li class="{{ Request::segment(1) === 'device-control' ? 'active' : '' }}">
                 <a href="{{ url('device-control') }}">
                     <i class="ti-panel"></i>
                     <span>Device Control</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="header nav-small-cap text-uppercase">TRANSACTION</li>
             <li class="{{ Request::segment(1) === 'booking-list' ? 'active' : '' }}">
@@ -78,34 +102,7 @@
                     <span>Visitor</span>
                 </a>
             </li> --}}
-            <li class="header nav-small-cap text-uppercase">FOOD & BEVERAGE</li>
-            <li class="{{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === null ? 'active' : '' }}">
-                <a href="{{ url('foodandbaverages') }}">
-                    <i class="ti-dashboard"></i>
-                    <span>F&B Dashboard</span>
-                </a>
-            </li>
-            <li class="treeview {{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === 'menu' || Request::segment(2) === 'categories' ? 'active' : '' }}">
-                <a href="#">
-                    <i class="ti-menu-alt"></i>
-                    <span>Menu</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === 'menu' ? 'active' : '' }}">
-                        <a href="{{ url('foodandbaverages/menu') }}">
-                            <i class="ti-more"></i>List Menu
-                        </a>
-                    </li>
-                    <li class="{{ Request::segment(1) === 'foodandbaverages' && Request::segment(2) === 'categories' ? 'active' : '' }}">
-                        <a href="{{ url('foodandbaverages/categories') }}">
-                            <i class="ti-more"></i>Categories
-                        </a>
-                    </li>
-                </ul>
-            </li>
+           
 
             <li class="header nav-small-cap text-uppercase">ACTIVITY</li>
             <li class="{{ Request::segment(1) === 'book-now' ? 'active' : '' }}">

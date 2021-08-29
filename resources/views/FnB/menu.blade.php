@@ -14,7 +14,7 @@
                     <span class="ti-folder font-size-50"></span>
                 </div>
                 <div class="py-30 bg-white text-dark">
-                    <div class="font-size-30">1</div>
+                    <div class="font-size-30">{{$total}}</div>
                     <span>Total Menu</span>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <span class="ti-link font-size-50"></span>
                 </div>
                 <div class="py-30 bg-white text-dark">
-                    <div class="font-size-30">3/<span class="font-size-18">4</span></div>
+                    <div class="font-size-30">{{$active}}/<span class="font-size-18">{{$total}}</span></div>
                     <span>Active Menu</span>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                             <h4 class="box-title">Menu List</h4>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="{{ url('/foodandbaverages/menu/add-new') }}" class="btn btn-bold btn-pure btn-info">Add New Menu</a>
+                            <a href="{{ route('add-menu') }}" class="btn btn-bold btn-pure btn-info">Add New Menu</a>
                         </div>
                     </div>
                 </div>
@@ -58,74 +58,33 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $no = 1;
+                            @endphp
+                                @foreach ($menus as $menu)   
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-left text-nowrap">French fries</td>
-                                    <td class="text-left text-nowrap">Snack</td>
-                                    <td class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci.</td>
-                                    <td class="text-center text-success"><span class="btn btn-success btn-block btn-rounded">Active</span></td>
+                                    <td class="text-center">{{$no}}</td>
+                                    <td class="text-left text-nowrap">{{$menu->name}}</td>
+                                    <td class="text-left text-nowrap">{{ $menu->category->name }}</td>
+                                    <td class="text-left">{{$menu->description}}</td>
+                                    <td class="text-center text-success text-lowercase"><span class="btn btn-block btn-rounded 
+                                        {{ $menu->status == "ACTIVE" ? 'btn-success' : 'btn-danger'}}    
+                                            ">{{$menu->status}}</span></td>
                                     <td class="text-center">
                                         <span data-toggle="modal" data-target="#modal-fill">
-                                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="View">
+                                            <a href="{{route('edit-menu',$menu->id)}}" title="View">
                                                 <i class="ti-eye"></i>
                                             </a>
                                         </span>
-                                        <a href="javascript:void(0);" class="ml-3" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                        <a href="{{route('delete-menu',$menu->id)}}" class="ml-3" title="Delete">
                                             <i class="ti-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">2</td>
-                                    <td class="text-left text-nowrap">Black coffee</td>
-                                    <td class="text-left text-nowrap">Hot drink</td>
-                                    <td class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci.</td>
-                                    <td class="text-center text-success"><span class="btn btn-success btn-block btn-rounded">Active</span></td>
-                                    <td class="text-center">
-                                        <span data-toggle="modal" data-target="#modal-fill">
-                                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="View">
-                                                <i class="ti-eye"></i>
-                                            </a>
-                                        </span>
-                                        <a href="javascript:void(0);" class="ml-3" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                            <i class="ti-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">3</td>
-                                    <td class="text-left text-nowrap">Hot tea</td>
-                                    <td class="text-left text-nowrap">Hot drink</td>
-                                    <td class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci.</td>
-                                    <td class="text-center text-success"><span class="btn btn-success btn-block btn-rounded">Active</span></td>
-                                    <td class="text-center">
-                                        <span data-toggle="modal" data-target="#modal-fill">
-                                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="View">
-                                                <i class="ti-eye"></i>
-                                            </a>
-                                        </span>
-                                        <a href="javascript:void(0);" class="ml-3" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                            <i class="ti-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td class="text-left text-nowrap">Cheese toast</td>
-                                    <td class="text-left text-nowrap">Snack</td>
-                                    <td class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci.</td>
-                                    <td class="text-center text-success"><span class="btn btn-danger btn-block btn-rounded">Inactive</span></td>
-                                    <td class="text-center">
-                                        <span data-toggle="modal" data-target="#modal-fill">
-                                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="View">
-                                                <i class="ti-eye"></i>
-                                            </a>
-                                        </span>
-                                        <a href="javascript:void(0);" class="ml-3" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                            <i class="ti-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @php
+                                $no++;
+                            @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -135,11 +94,10 @@
     </div>
 
     {{-- modal here --}}
-    <div class="modal modal-fill fade" data-backdrop="false" id="modal-fill" tabindex="-1" style="z-index: 9999">
-        <div class="modal-dialog modal-lg"">
+    {{-- <div class="modal modal-fill fade" data-backdrop="false" id="modal-fill" tabindex="-1" style="z-index: 9999">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    {{-- <h5 class="modal-title">Large Meeting Room	</h5> --}}
                     <button type="button" class="close" style="padding-right: 28px" data-dismiss="modal">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -183,10 +141,8 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal-footer">
-
-                </div> --}}
+               
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection

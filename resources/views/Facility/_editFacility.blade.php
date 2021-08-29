@@ -13,33 +13,36 @@
                 <div class="box-header">
                     <h4 class="box-title">Facility Info</h4>
                 </div>
+                <form action="{{ route('update-menu-facilities', $menu->id)}}" method="post">
+                    @csrf
                 <div class="box-body">
                     <div class="form-group">
-                        <label>Facility Code</label>
-                        <input type="text" class="form-control" value="INF190281D" placeholder="">
-                    </div>
-                    <div class="form-group">
                         <label>Facility Name</label>
-                        <input type="text" class="form-control" value="Infocus" placeholder="">
+                        <input type="text" class="form-control" name="name" value="{{$menu->name}}" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <select class="form-control select2" style="width: 100%;">
-                            <option disabled>Select Category</option>
-                            <option selected>Office Equipment</option>
-                            <option>Stationery</option>
-						</select>
+                        <select name="id_category" class="form-control">
+                            <option value="{{$menu->id}}">{{$menu->category->name}}</option>
+                            @foreach ($categories as $item)   
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea rows="4" cols="4" class="form-control" placeholder="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci.</textarea>
+                        <textarea rows="4" cols="4" class="form-control" name="description">{{$menu->description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Facility Status</label>
                         <div class="c-inputs-stacked">
-                            <input name="status" type="radio" id="status_active" value="1" checked>
+                            <input name="status" type="radio" id="status_active" value="ACTIVE"
+                            {{$menu->status == 'ACTIVE' ? 'checked' : ''}}
+                            >
                             <label for="status_active" class="mr-30">Active</label>
-                            <input name="status" type="radio" id="status_inactive" value="0">
+                            <input name="status" type="radio" id="status_inactive" value="INACTIVE"
+                            {{$menu->status == 'INACTIVE' ? 'checked' : ''}}
+                            >
                             <label for="status_inactive" class="mr-30">Inactive</label>
                         </div>
                     </div>
@@ -50,9 +53,10 @@
                             <button type="button" class="btn btn-bold btn-pure btn-secondary btn-block" onclick="window.history.go(-1)">Cancel</button>
                         </div>
                         <div class="col-3">
-                            <a href="" class="btn btn-bold btn-pure btn-info btn-block">Save</a>
+                            <button type="submit" class="btn btn-bold btn-pure btn-info btn-block">Save</button>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
         </div>
