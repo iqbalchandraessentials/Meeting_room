@@ -23,35 +23,39 @@
                         <label>Meeting PIC</label>
                         <div class="row align-items-center">
                             <div class="col-sm-4 col-12 mb-4">
-                                <input type="text" class="form-control" value="Orrin Haim Timoteus" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$name}}" placeholder="" readonly>
                             </div>
                             <div class="col-sm-4 col-12 mb-4">
-                                <input type="text" class="form-control" value="orrin.haim@timoteus.com" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$email}}" placeholder="" readonly>
                             </div>
                             <div class="col-sm-4 col-12 mb-4">
-                                <input type="text" class="form-control" value="+6281381358809" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$phone}}" placeholder="" readonly>
                             </div>
                         </div>
                     </div>
+                    @foreach ($rooms as $room)
+                        
+                    
                     <div class="form-group">
                         <label>Meeting date</label>
                         <div class="row align-items-center">
                             <div class="col-sm-12 col-12">
-                                <input type="text" class="form-control" value="04 May 2021" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$room->date}}" placeholder="" readonly>
                             </div>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label>Meeting time</label>
                         <div class="row align-items-center">
                             <div class="col-sm-5 col-5">
-                                <input type="text" class="form-control" value="14:00" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$room->start}}" placeholder="" readonly>
                             </div>
                             <div class="col-sm-2 col-2 text-center">
                                 <p class="mb-0">Until</p>
                             </div>
                             <div class="col-sm-5 col-5">
-                                <input type="text" class="form-control" value="16:00" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{$room->untill}}" placeholder="" readonly>
                             </div>
                         </div>
                     </div>
@@ -214,18 +218,20 @@
                     <div class="">
                         <div class="row">
                             <div class="col-12">
-                                <p class="text-left font-size-11 text-uppercase text-bold">Large Meeting Room</p>
+                                <p class="text-left font-size-11 text-uppercase text-bold">{{$room->room->name}}</p>
                             </div>
                         </div>
                         <div class="row">
+                            @foreach ($room->room->galleries as $gallery)
                             <div class="col-12 mb-4">
-                                <img src="{{ asset('img/meeting-room/meeting_room_1.jpeg') }}" alt="">
+                                <img src="{{Storage::url($gallery->photos ?? '')}}" alt="">
                             </div>
+                            @endforeach
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <p class="text-left font-size-11 text-uppercase text-bold">Capacity</p>
-                                <p class="text-left">24 Participants</p>
+                                <p class="text-left">Capacity: {{$room->room->capacity}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -325,6 +331,7 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
                 <div class="modal-footer p-4">
                     <div class="row">
                         <div class="col-3">

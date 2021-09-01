@@ -30,6 +30,8 @@
                 <form action="{{route('update-meeting-room',$menu->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                 
+
+
                 <div class="box-body">
                     <div class="form-group">
                         <label>Meeting Room Name</label>
@@ -45,8 +47,11 @@
                     </div>
                     <div class="form-group">
                         <label>Hours Availability</label>
+                        <input type="text" class="form-control" disabled value="
+                        {{$menu->hours_availibility}}">
                         <select class="form-control select2" id="selectHours" name="hours_availibility" style="width: 100%;">
-                            <option selected="selected" value="Full Days">Full Days</option>
+                            <option selected="selected" value="{{$menu->hours_availibility}}">Select Hours</option>
+                            <option value="Full Days">Full Days</option>
                             <option value="99">Custom hour</option>
 						</select>
                         <div class="mt-4 d-none" id="customHour">
@@ -118,8 +123,11 @@
                     </div>
                     <div class="form-group">
                         <label>Days Availability</label>
+                        <input type="text" class="form-control" disabled value="
+                        {{$menu->days_availibility}}">
                         <select class="form-control select2" id="selectDays" name="days_availibility" style="width: 100%;">
-                            <option selected="selected">All Days</option>
+                            <option selected="selected" value="{{$menu->days_availibility}}">select days availability</option>
+                            <option value="All Days">All Days</option>
                             <option value="Weekdays">Weekdays Only</option>
                             <option value="Weekend">Weekend Only</option>
                             <option value="99">Custom day</option>
@@ -157,11 +165,15 @@
 				<div class="box-body">
 					<div class="form-group">
                         <label>Facilities</label>
-                        <select class="form-control select2" name="facility[]" multiple style="width: 100%;">
+                        <input type="text" value="{{$menu->facility  }}" class="d-none" name="fasilitasHide">
+                        <textarea rows="2" cols="5" class="form-control" disabled>{{$menu->facility  }}</textarea>
+                        
+                        <select class="form-control select2 mt-3" name="facility[]" multiple style="width: 100%;">
                             @foreach ($facilities as $facility)
-                                <option value="{{$facility->name}}">{{$facility->name}}</option>
-                                @endforeach
+                            <option value="{{$facility->name}}">{{$facility->name}}</option>
+                            @endforeach
 						</select>
+                        <p class="text-mute">*) it will replace your existing data</p>
                     </div>
 				</div>
 			</div>

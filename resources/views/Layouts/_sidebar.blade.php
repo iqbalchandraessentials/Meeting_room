@@ -106,7 +106,7 @@
 
             <li class="header nav-small-cap text-uppercase">ACTIVITY</li>
             <li class="{{ Request::segment(1) === 'book-now' ? 'active' : '' }}">
-                <a href="{{ url('book-now') }}">
+                <a href="{{ route('book-now') }}">
                     <i class="ti-pencil-alt"></i>
                     <span>Book Now</span>
                 </a>

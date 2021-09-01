@@ -17,6 +17,11 @@
         </div>
     </div>
 
+
+
+
+
+    
     {{-- modal here --}}
     <div class="modal" data-backdrop="false" tabindex="-1" id="modal-fill" style="z-index: 9999; background: #fff;">
         <div class="modal-dialog modal-lg">
@@ -27,6 +32,14 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div> --}}
+
+
+
+
+
+
+
+
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
@@ -34,12 +47,19 @@
                                 <div class="box-header">
                                     <h4 class="box-title">Review New Meeting</h4>
                                 </div>
+                                <form action="{{route('store-book-now')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="text" name="code" value="{{$code}}" class="d-none">
+                                    <input type="text" class="d-none" value="{{$name}}" name="pic_name">
+                                    <input type="text" class="d-none" value="{{$email}}" name="pic_email">
+                                    <input type="text" class="d-none" value="{{$phone}}" name="pic_phone">
+                                
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label>Meeting date</label>
                                         <div class="row align-items-center">
                                             <div class="col-sm-12 col-12">
-                                                <input type="text" class="form-control" value="04 May 2021" placeholder="" readonly>
+                                                <input type="text" class="form-control" value="04 May 2021" name="date" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -47,25 +67,29 @@
                                         <label>Meeting time</label>
                                         <div class="row align-items-center">
                                             <div class="col-sm-5 col-5">
-                                                <input type="text" class="form-control" value="14:00" placeholder="" readonly>
+                                                <input type="text" class="form-control" value="14:00" name="start" readonly>
                                             </div>
                                             <div class="col-sm-2 col-2 text-center">
                                                 <p class="mb-0">Until</p>
                                             </div>
                                             <div class="col-sm-5 col-5">
-                                                <input type="text" class="form-control" value="16:00" placeholder="" readonly>
+                                                <input type="text" class="form-control" value="16:00" name="untill" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group mb-0">
                                         <label>Select Room</label>
                                         <div class="">
-                                            <select name="" class="select2" id="selectMRoom" style="width: 100%">
-                                                <option selected disabled>Select Meeting Room</option>
-                                                <option value="99">Large Meeting Room</option>
+                                            <select name="id_room" class="select2" id="selectMRoom" style="width: 100%">
+                                                <option value="">Select room meeting</option>
+                                                @foreach ($rooms as $room)
+                                                    <option value="{{$room->id}}">{{$room->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
+
+                                    {{-- display none and block when select change  --}}
                                     <div class="form-group d-none mt-4" id="detailMRoom">
                                         <div class="detail-meeting-room">
                                             <div class="row">
@@ -81,7 +105,7 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <p class="text-left font-size-11 text-uppercase text-bold">Capacity</p>
-                                                    <p class="text-left">24 Participants</p>
+                                                    <p class="text-left">100 Participants</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -117,23 +141,25 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
                                 <div class="box-footer">
                                     <div class="row">
                                         <div class="col-3">
                                             <button type="button" class="btn btn-bold btn-pure btn-secondary btn-block" data-dismiss="modal">Cancel</button>
                                         </div>
                                         <div class="col-3">
-                                            <a href="{{ url('/book-now/book') }}" class="btn btn-bold btn-pure btn-info float-right btn-block">Next</a>
+                                            <button type="submit" class="btn btn-bold btn-pure btn-info float-right btn-block">Next</button>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal-footer">
-
-                </div> --}}
+                
             </div>
         </div>
     </div>
@@ -169,28 +195,28 @@
                     console.log('selected ' + info.startStr + ' to ' + info.endStr);
                     $('#modal-fill').modal('show');
                 },
-                // eventDidMount: function(info) {
-                //     var tooltip = new Tooltip(info.el, {
-                //         title: info.event.extendedProps.description,
-                //         placement: 'top',
-                //         trigger: 'hover',
-                //         container: 'body'
-                //     });
-                // },
+                eventDidMount: function(info) {
+                    var tooltip = new Tooltip(info.el, {
+                        title: info.event.extendedProps.description,
+                        placement: 'top',
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                },
                 events: 'https://fullcalendar.io/demo-events.json'
             });
             calendar.render();
         });
 
         // show detail meeting room
-        $('#selectMRoom').on('change', function() {
+        $('.modal-body').on('change','#selectMRoom', function() {
             // alert( this.value );
-            if(this.value == 99) {
+            // if(this.value == 99) {
                 console.log('hello em')
                 $('#detailMRoom').removeClass('d-none')
-            } else {
-                $('#detailMRoom').addClass('d-none')
-            }
+            // } else {
+                // $('#detailMRoom').addClass('d-none')
+            // }
         });
     </script>
 @endsection

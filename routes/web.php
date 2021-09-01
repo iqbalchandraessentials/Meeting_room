@@ -63,10 +63,44 @@ Route::post('/facilities/categories/update/{id}', [App\Http\Controllers\category
 
 
 
+
+
+// ACTIVITY
+
+Route::get('/book-now', [App\Http\Controllers\booking\BookingController::class, 'index'])->name('book-now');
+Route::post('/book-now/store', [App\Http\Controllers\booking\BookingController::class, 'store'])->name('store-book-now');
+Route::get('/book-now/detail/{id}', [App\Http\Controllers\booking\BookingController::class, 'detail'])->name('detail-book-now');
+// Route::get('/book-now', function () {
+//     return view('Booking.bookNow');
+// });
+Route::get('/book-now/book', function () {
+    return view('Booking._book');
+});
+Route::get('/my-booking', function () {
+    return view('Booking.myBooking');
+});
+Route::get('/my-booking/tableActive', function () {
+    return view('Booking._tableActiveBook');
+});
+Route::get('/my-booking/tableDone', function () {
+    return view('Booking._tableDoneBook');
+});
+Route::get('/my-booking/view', function () {
+    return view('Booking._viewMyBook');
+});
+Route::get('/my-booking/edit', function () {
+    return view('Booking._editMyBook');
+});
+Route::get('/my-booking/rearange', function () {
+    return view('Booking._rearangeMyBook');
+});
+
+
 // MEETING PAGE
 // Route::get('/device-control', function () {
 //     return view('MeetingPage.deviceControl');
 // });
+
 
 // TRANSACTION
 Route::get('/booking-list', function () {
@@ -103,31 +137,6 @@ Route::get('/foodandbaverages/categories/{id}', [App\Http\Controllers\categoryFN
 
 
 
-// ACTIVITY
-Route::get('/book-now', function () {
-    return view('Booking.bookNow');
-});
-Route::get('/book-now/book', function () {
-    return view('Booking._book');
-});
-Route::get('/my-booking', function () {
-    return view('Booking.myBooking');
-});
-Route::get('/my-booking/tableActive', function () {
-    return view('Booking._tableActiveBook');
-});
-Route::get('/my-booking/tableDone', function () {
-    return view('Booking._tableDoneBook');
-});
-Route::get('/my-booking/view', function () {
-    return view('Booking._viewMyBook');
-});
-Route::get('/my-booking/edit', function () {
-    return view('Booking._editMyBook');
-});
-Route::get('/my-booking/rearange', function () {
-    return view('Booking._rearangeMyBook');
-});
 
 // REPORT
 Route::get('/report', function () {

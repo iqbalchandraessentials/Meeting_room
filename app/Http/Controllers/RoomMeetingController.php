@@ -114,14 +114,18 @@ class RoomMeetingController extends Controller
             $akhir = $request->untillHour;
             $data['hours_availibility'] = $awal . ',' . $akhir;
         }
+
         if ($request->days_availibility == "99") {
             $customDay = $request->customDay;
             $columns = implode(", ", $customDay);
             $data['days_availibility'] = $columns;
         }
-        $facilitas = $request->facility;
-        $fasilitas = implode(',', $facilitas);
-        $data['facility'] = $fasilitas;
+        if ($request->facility) {
+            $facilitas = $request->facility;
+            $fasilitas = implode(',', $facilitas);
+            $data['facility'] = $fasilitas;
+        }
+
         $menu = room_meeting::findOrFail($id);
         $menu->update($data);
         return redirect()->route('meeting-room');
