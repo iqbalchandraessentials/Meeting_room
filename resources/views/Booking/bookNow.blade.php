@@ -90,55 +90,8 @@
                                     </div>
 
                                     {{-- display none and block when select change  --}}
-                                    <div class="form-group d-none mt-4" id="detailMRoom">
-                                        <div class="detail-meeting-room">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="text-left font-size-11 text-uppercase text-bold">Large Meeting Room</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12 mb-4">
-                                                    <img src="{{ asset('img/meeting-room/meeting_room_1.jpeg') }}" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="text-left font-size-11 text-uppercase text-bold">Capacity</p>
-                                                    <p class="text-left">100 Participants</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <p class="text-left font-size-11 text-uppercase text-bold" style="margin-top: 1rem">Room Facility</p>
-
-                                                            <ol class="nav d-block nav-stacked">
-                                                                <li class="nav-item">
-                                                                    <p class="text-capitalize mb-0">1. Infocus</p>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <p class="text-capitalize mb-0">2. Screen</p>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <p class="text-capitalize mb-0">3. Glass board</p>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <p class="text-capitalize mb-0">4. Sound system</p>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <p class="text-capitalize mb-0">5. Pencils and memos</p>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <p class="text-capitalize mb-0">6. Internet connection</p>
-                                                                </li>
-                                                            </ol>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-group mt-4" id="detailMRoom">
+                                        
                                     </div>
                                 </div>
 
@@ -166,6 +119,7 @@
 @endsection
 
 @section('script')
+
     <script src='{{  asset('vendor/fullcalendar-5.6.0/lib/main.js') }}'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -210,13 +164,63 @@
 
         // show detail meeting room
         $('.modal-body').on('change','#selectMRoom', function() {
-            // alert( this.value );
-            // if(this.value == 99) {
+            
+            $.ajax({
+                url : 'http://meeting-room.test/api/rooms-meeting',
+                type : 'get',
+                dataType: "json",
+                data : {
+                    id : $("#selectMRoom").val(), 
+                },
+                success: function (res) {
+                // console.log(res);
+                let room = res.data;
+                let photo = res.data.galleries[0].photos;
+                let fasilitas = room.facility.split(",");
+                // console.log(fasilitas); 
+                // for (let i = 0; i < no; i++) {
+                // li =  `<li class="nav-item"><p class="text-capitalize mb-0">`+fasilitas[i]+`</p></li>`
+                // }
+                $('#detailMRoom').html(`
+                <div class="detail-meeting-room">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="text-left font-size-11 text-uppercase text-bold">
+                                                        `+room.name+`
+                                                        </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 mb-4">
+                                                    <img src="{{ asset('storage/`+photo+`') }}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="text-left font-size-11 text-uppercase text-bold">Capacity</p>
+                                                    <p class="text-left">`+room.capacity+` Participants</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p class="text-left font-size-11 text-uppercase text-bold" style="margin-top: 1rem">Room Facility</p>  
+                                                            <ol class="nav d-block nav-stacked" id="coba">
+                                                                `+li+`
+                                                                <li class="nav-item"><p class="text-capitalize mb-0">`+fasilitas+`</p></li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                `);
+            },
+            }),
+
                 console.log('hello em')
-                $('#detailMRoom').removeClass('d-none')
-            // } else {
-                // $('#detailMRoom').addClass('d-none')
-            // }
+            
         });
     </script>
 @endsection

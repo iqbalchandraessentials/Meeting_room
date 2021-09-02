@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseFormatter;
 use App\Models\menu_facility;
 use App\Models\room_galery;
 use App\Models\room_meeting;
@@ -98,6 +99,27 @@ class RoomMeetingController extends Controller
             ]
         );
     }
+
+
+    public function apiDetail(Request $request)
+    {
+        $id = $request->input('id');
+        $products = room_meeting::with((['galleries']))->find($id);
+
+        if ($products)
+            return ResponseFormatter::success(
+                $products,
+                'Data produk berhasil diambil'
+            );
+        else
+            return ResponseFormatter::error(
+                null,
+                'Data kategori produk tidak ada',
+                404
+            );
+    }
+
+
 
     /**
      * Update the specified resource in storage.
