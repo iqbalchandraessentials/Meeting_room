@@ -47,8 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label>Hours Availability</label>
-                        <input type="text" class="form-control" disabled value="
-                        {{$menu->hours_availibility}}">
+                        <input type="text" class="form-control" disabled value="{{$menu->hours_availibility}}">
                         <select class="form-control select2" id="selectHours" name="hours_availibility" style="width: 100%;">
                             <option selected="selected" value="{{$menu->hours_availibility}}">Select Hours</option>
                             <option value="Full Days">Full Days</option>
@@ -123,8 +122,7 @@
                     </div>
                     <div class="form-group">
                         <label>Days Availability</label>
-                        <input type="text" class="form-control" disabled value="
-                        {{$menu->days_availibility}}">
+                        <input type="text" class="form-control" disabled value="{{$menu->days_availibility}}">
                         <select class="form-control select2" id="selectDays" name="days_availibility" style="width: 100%;">
                             <option selected="selected" value="{{$menu->days_availibility}}">select days availability</option>
                             <option value="All Days">All Days</option>

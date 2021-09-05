@@ -14,13 +14,14 @@ class booking_now extends Model
     protected $hidden = [];
 
 
-    public function galleries()
-    {
-        return $this->hasMany(room_galery::class, 'room_id', 'id');
-    }
+
 
     public function room()
     {
         return $this->belongsTo(room_meeting::class, 'id_room', 'id');
+    }
+    public function menuFNB()
+    {
+        return $this->hasMany(fnb_orders::class, 'id_book', 'code');
     }
 }

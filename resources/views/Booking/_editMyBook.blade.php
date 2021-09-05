@@ -59,18 +59,20 @@
                             </div>
                         </div>
                     </div>
+                    <form action="{{route('update-book-now', $room->id)}}" method="post" enctype="multipart/form-data">
+                        @csrf
                     <div class="form-group">
                         <label>Meeting Description</label>
                         <div class="row align-items-center">
                             <div class="col-sm-12 col-12">
-                                <textarea class="form-control" rows="3" cols="3" placeholder="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt, numquam autem! Assumenda odit quae obcaecati non similique. Voluptatum mollitia delectus asperiores repellendus unde voluptates, beatae, ullam praesentium odio minima quod.</textarea>
+                                <textarea class="form-control" name="description" rows="3" cols="3" required></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-0">
-                        <label>Meeting Participants (max 24 Person)</label>
+                        <label>Meeting Participants (max {{$room->room->capacity}} Person)</label>
                     </div>
-                    <div class="form-group mb-0">
+                    {{-- <div class="form-group mb-0">
                         <div class="row">
                             <div class="col-3">
                                 <label>Name</label>
@@ -106,7 +108,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div id="field_wrapper"></div>
                 </div>
             </div>
@@ -135,74 +137,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $no = 1;
+                                @endphp
+                                @foreach ($room->menuFNB as $item)
                                 <tr>
-                                    <td class="">1</td>
-                                    <td class="text-left">Thai fried banana</td>
-                                    <td class="text-left text-uppercase">Snack</td>
-                                    <td class="text-left">Extra honey</td>
+                                    <td class="">{{$no}}</td>
+                                    <td class="text-left">{{$item->menu->name}}</td>
+                                    <td class="text-left text-uppercase">{{$item->menu->category->name}}</td>
+                                    <td class="text-left">{{$item->note}}</td>
                                     <td class="text-center w-60">
-                                        <span class="badge bg-dark" style="min-width: 32px">10</span>
+                                        <span class="badge bg-dark" style="min-width: 32px">{{$item->qty}}</span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="javascript:void(0);" class="mr-3" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                        {{-- <a href="" class="mr-3" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                             <span class="ti-pencil"></span>
-                                        </a>
-                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                        </a> --}}
+                                        <a href="{{route('deleteFNB-book-now', $item->id)}}" data-toggle="tooltip" data-placement="bottom" title="Delete">
                                             <span class="ti-trash text-danger"></span>
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="">2</td>
-                                    <td class="text-left">French fries</td>
-                                    <td class="text-left text-uppercase">Snack</td>
-                                    <td class="text-left">-</td>
-                                    <td class="text-center w-60">
-                                        <span class="badge bg-dark" style="min-width: 32px">3</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="mr-3" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                            <span class="ti-pencil"></span>
-                                        </a>
-                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                            <span class="ti-trash text-danger"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">3</td>
-                                    <td class="text-left">Black coffee</td>
-                                    <td class="text-left text-uppercase">Hot Drink</td>
-                                    <td class="text-left">Less sugar</td>
-                                    <td class="text-center w-60">
-                                        <span class="badge bg-dark" style="min-width: 32px">2</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="mr-3" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                            <span class="ti-pencil"></span>
-                                        </a>
-                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                            <span class="ti-trash text-danger"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">4</td>
-                                    <td class="text-left">Hot tea</td>
-                                    <td class="text-left text-uppercase">Hot Drink</td>
-                                    <td class="text-left">Less sugar</td>
-                                    <td class="text-center w-60">
-                                        <span class="badge bg-dark" style="min-width: 32px">8</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:void(0);" class="mr-3" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                            <span class="ti-pencil"></span>
-                                        </a>
-                                        <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                            <span class="ti-trash text-danger"></span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @php
+                                $no++;
+                                @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -241,7 +200,19 @@
                                         <p class="text-left font-size-11 text-uppercase text-bold" style="margin-top: 1rem">Room Facility</p>
 
                                         <ol class="nav d-block nav-stacked">
-                                            <li class="nav-item">
+
+
+
+                                            <ol class="nav d-block nav-stacked">
+                                        @php
+                                            $fasilitas = $room->room->facility;
+                                        @endphp
+                                        @foreach(explode(',',$fasilitas) as $row)
+                                        <li class="nav-item"><p class="text-capitalize mb-0">{{ $row }}</p></li>
+                                       
+                                        @endforeach
+
+                                            {{-- <li class="nav-item">
                                                 <p class="text-capitalize mb-0">1. Infocus</p>
                                             </li>
                                             <li class="nav-item">
@@ -258,7 +229,7 @@
                                             </li>
                                             <li class="nav-item">
                                                 <p class="text-capitalize mb-0">6. Internet connection</p>
-                                            </li>
+                                            </li> --}}
                                         </ol>
                                     </div>
                                 </div>
@@ -272,11 +243,11 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
-                <div class="col-3">
+                {{-- <div class="col-3">
                     <div class="form-group">
                         <a href="{{ url('/my-booking') }}" class="btn btn-bold btn-pure btn-secondary btn-block">Cancel</a>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-3">
                     <div class="form-group">
                         <button type="submit" class="btn btn-bold btn-pure btn-info btn-block">Save</button>
@@ -285,8 +256,9 @@
             </div>
         </div>
     </div>
+</form>
 
-    {{-- modal start --}}
+    {{-- modal fnb --}}
     <div class="modal" data-backdrop="false" tabindex="-1" id="myFnBModal" style="z-index: 9999;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -296,105 +268,108 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+                
+                <form action="{{route('fnbStore-book-now')}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-body">
                     <div class="row">
+                        <input type="text" value="{{$room->code}}" style="display: none" name="id_book">
                         <div class="col-12">
                             <div class="form-group">
                                 <label>F&B Category</label>
                                 <div class="">
-                                    <select name="" class="select2" id="selectMRoom" style="width: 100%">
+                                    <select name="id_category" class="select2" id="selecMenu" style="width: 100%">
                                         <option selected disabled>Select Category</option>
-                                        <option value="">Food</option>
-                                        <option value="">Snack</option>
-                                        <option value="">Hot Drink</option>
-                                        <option value="">Cold Drink</option>
+                                        @foreach ($menus as $menu)
+                                        <option value="{{$menu->id}}">{{$menu->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>F&B Menu</label>
                                 <div class="">
-                                    <select name="" class="select2" id="selectMRoom" style="width: 100%">
-                                        <option selected disabled>Select Menu</option>
-                                        <option value="">Thai fried banana</option>
+                                    <select name="id_name" class="select2" id="selectFoods" style="width: 100%">
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number" class="form-control" placeholder="">
+                                <input type="number" name="qty" class="form-control" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label>Notes</label>
-                                <textarea class="form-control" rows="3" cols="3" placeholder=""></textarea>
+                                <textarea class="form-control" name="note" rows="3" id="notesMenu" cols="3"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                @endforeach
                 <div class="modal-footer p-4">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-6">
                             <button type="button" class="btn btn-bold btn-pure btn-secondary btn-block" data-dismiss="modal">Cancel</button>
                         </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-bold btn-pure btn-info btn-block" data-dismiss="modal">Save</button>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-bold btn-pure btn-info btn-block">Save</button>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
-        </div>
     </div>
+</div>
+@endforeach
 @endsection
 
 @section('script')
     <script src="{{ asset('vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script>
         // dynamic input meeting participants
-        $(document).ready(function(){
-            var maxField = 24; //Input fields increment limitation
-            var addButton = $('#addRow'); //Add button selector
-            var wrapper = $('#field_wrapper'); //Input field wrapper
-            var html = ''; //New input field html
-                html +='<div class="form-group mb-0 mt-4 new-row">';
-                    html +='<div class="row">';
-                        html +='<div class="col-3">';
-                            html +='<input type="text" name="guest_name" class="form-control">';
-                        html +='</div>';
-                        html +='<div class="col-3">';
-                            html +='<input type="text" name="guest_email" class="form-control">';
-                        html +='</div>';
-                        html +='<div class="col-3">';
-                            html +='<input type="text" name="guest_company" class="form-control">';
-                        html +='</div>';
-                        html +='<div class="col-2">';
-                            html +='<input type="text" name="guset_phone" class="form-control">';
-                        html +='</div>';
-                        html +='<div class="col-1">';
-                            html +='<button class="btn btn-bold btn-pure btn-danger btn-block" id="removeRow"><i class="ti-minus"></i></button>';
-                        html +='</div>';
-                    html +='</div>';
-                html +='</div>';
-            var x = 1; //Initial field counter is 1
+        // $(document).ready(function(){
+        //     var maxField = 24; //Input fields increment limitation
+        //     var addButton = $('#addRow'); //Add button selector
+        //     var wrapper = $('#field_wrapper'); //Input field wrapper
+        //     var html = ''; //New input field html
+        //         html +='<div class="form-group mb-0 mt-4 new-row">';
+        //             html +='<div class="row">';
+        //                 html +='<div class="col-3">';
+        //                     html +='<input type="text" name="guest_name" class="form-control">';
+        //                 html +='</div>';
+        //                 html +='<div class="col-3">';
+        //                     html +='<input type="text" name="guest_email" class="form-control">';
+        //                 html +='</div>';
+        //                 html +='<div class="col-3">';
+        //                     html +='<input type="text" name="guest_company" class="form-control">';
+        //                 html +='</div>';
+        //                 html +='<div class="col-2">';
+        //                     html +='<input type="text" name="guset_phone" class="form-control">';
+        //                 html +='</div>';
+        //                 html +='<div class="col-1">';
+        //                     html +='<button class="btn btn-bold btn-pure btn-danger btn-block" id="removeRow"><i class="ti-minus"></i></button>';
+        //                 html +='</div>';
+        //             html +='</div>';
+        //         html +='</div>';
+        //     var x = 1; 
+            //Initial field counter is 1
 
             //Once add button is clicked
-            $(addButton).click(function(){
-                //Check maximum number of input fields
-                if(x < maxField){
-                    x++; //Increment field counter
-                    $(wrapper).append(html); //Add field html
-                } else {
-                    Swal.fire('You have reached the maximum number of participants')
-                }
-            });
+            // $(addButton).click(function(){
+            //     //Check maximum number of input fields
+            //     if(x < maxField){
+            //         x++; //Increment field counter
+            //         $(wrapper).append(html); //Add field html
+            //     } else {
+            //         Swal.fire('You have reached the maximum number of participants')
+            //     }
+            // });
 
             //Once remove button is clicked
-            $(wrapper).on('click', '#removeRow', function(e){
-                e.preventDefault();
-                $(this).closest('.form-group').remove(); //Remove field html
-                x--; //Decrement field counter
-            });
-        });
+        //     $(wrapper).on('click', '#removeRow', function(e){
+        //         e.preventDefault();
+        //         $(this).closest('.form-group').remove(); //Remove field html
+        //         x--; //Decrement field counter
+        //     });
+        // });
 
         // table f&b
         var groupColumn = 2;
@@ -425,5 +400,51 @@
                 } );
             }
         } );
+    
+        $('#myFnBModal').on('change','#selecMenu', function() {
+        $.ajax({
+                url : 'http://meeting-room.test/api/menu-fnb',
+                type : 'get',
+                dataType: "json",
+                data : {
+                    search : $("#selecMenu").val(), 
+                },
+                success: function (res) {
+                
+                let data = res.data;
+                let menu = '';
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    if (data[i].status == "ACTIVE") {   
+                    menu += `<option value=" `+data[i].id+` ">`+data[i].name+`</option>`;
+                    }
+                    
+                }
+                $('#selectFoods').html(`  <option selected disabled>Select Menu</option>
+                `+menu+` `)
+                $('#notesMenu').attr('placeholder')
+            }, 
+            });
+        });
+
+        $('#myFnBModal').on('change','#selectFoods', function() {
+        $.ajax({
+                url : 'http://meeting-room.test/api/placeholder-fnb',
+                type : 'get',
+                dataType: "json",
+                data : {
+                    search : $("#selectFoods").val(), 
+                },
+                success: function (res) {
+                console.log(res);
+                let notes = res.data.description;
+                $('#notesMenu').attr('placeholder','info: '+ notes)
+            
+            }, 
+            });
+        });
+
+
+
     </script>
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\booking\BookingController;
 use App\Http\Controllers\RoomMeetingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('rooms-meeting', [RoomMeetingController::class, 'apiDetail']);
+Route::get('menu-fnb', [BookingController::class, 'apiMenuFnb']);
+Route::get('placeholder-fnb', [BookingController::class, 'apiNotesFnb']);

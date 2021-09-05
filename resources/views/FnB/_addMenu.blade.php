@@ -18,11 +18,13 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" autocomplete="off" class="form-control" name="name">
                     </div>
                     <div class="form-group">
                         <label>Category</label>
                         <select name="id_category" class="form-control">
+                            <option disabled selected>select category</option>
+
                             @foreach ($category as $item)   
                             <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach

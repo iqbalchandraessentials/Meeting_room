@@ -25,21 +25,7 @@
     {{-- modal here --}}
     <div class="modal" data-backdrop="false" tabindex="-1" id="modal-fill" style="z-index: 9999; background: #fff;">
         <div class="modal-dialog modal-lg">
-            {{-- <div class="modal-content" style="max-width: 1024px"> --}}
             <div class="modal-content" style="box-shadow: none">
-                {{-- <div class="modal-header">
-                    <button type="button" class="close" style="padding-right: 28px" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div> --}}
-
-
-
-
-
-
-
-
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
@@ -59,7 +45,7 @@
                                         <label>Meeting date</label>
                                         <div class="row align-items-center">
                                             <div class="col-sm-12 col-12">
-                                                <input type="text" class="form-control" value="04 May 2021" name="date" readonly>
+                                                <input type="text" class="form-control" id="date" name="date" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -67,13 +53,13 @@
                                         <label>Meeting time</label>
                                         <div class="row align-items-center">
                                             <div class="col-sm-5 col-5">
-                                                <input type="text" class="form-control" value="14:00" name="start" readonly>
+                                                <input type="text" class="form-control" id="start" name="start" readonly>
                                             </div>
                                             <div class="col-sm-2 col-2 text-center">
                                                 <p class="mb-0">Until</p>
                                             </div>
                                             <div class="col-sm-5 col-5">
-                                                <input type="text" class="form-control" value="16:00" name="untill" readonly>
+                                                <input type="text" class="form-control" id="untill" name="untill" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -122,18 +108,12 @@
 
     <script src='{{  asset('vendor/fullcalendar-5.6.0/lib/main.js') }}'></script>
     <script>
+        
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
                 themeSystem: 'standart',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'timeGridWeek,timeGridDay',
-                    // right: 'timeGridWeek',
-                    // right: 'today prev,next'
-                },
                 timeZone: 'local',
                 editable: true,
                 selectable: true,
@@ -144,19 +124,32 @@
                 validRange: {
                     start: moment().day(),
                 },
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek,timeGridDay',
+                    // right: 'timeGridWeek',
+                    // right: 'today prev,next'
+                },
                 firstDay: moment().day(),
                 select: function(info) {
-                    console.log('selected ' + info.startStr + ' to ' + info.endStr);
+
+                    
                     $('#modal-fill').modal('show');
+                    $("#date").val(info.startStr.substring(0, 10));
+                    $("#start").val(info.startStr.substr(11, 5));
+                    $("#untill").val(info.endStr.substr(11, 5));
+                    console.log('selected ' + info.startStr + ' to ' + info.endStr);
+
                 },
-                eventDidMount: function(info) {
-                    var tooltip = new Tooltip(info.el, {
-                        title: info.event.extendedProps.description,
-                        placement: 'top',
-                        trigger: 'hover',
-                        container: 'body'
-                    });
-                },
+                // eventDidMount: function(info) {
+                //     var tooltip = new Tooltip(info.el, {
+                //         title: info.event.extendedProps.description,
+                //         placement: 'top',
+                //         trigger: 'hover',
+                //         container: 'body'
+                //     });
+                // },
                 events: 'https://fullcalendar.io/demo-events.json'
             });
             calendar.render();
@@ -173,14 +166,17 @@
                     id : $("#selectMRoom").val(), 
                 },
                 success: function (res) {
-                // console.log(res);
+                console.log(res);
                 let room = res.data;
                 let photo = res.data.galleries[0].photos;
                 let fasilitas = room.facility.split(",");
-                // console.log(fasilitas); 
-                // for (let i = 0; i < no; i++) {
-                // li =  `<li class="nav-item"><p class="text-capitalize mb-0">`+fasilitas[i]+`</p></li>`
-                // }
+                let text = "";
+            for (let i = 0; i < fasilitas.length; i++) { 
+             text += `<li class="nav-item"><p class="text-capitalize mb-0">${fasilitas[i]}</p></li>`
+              }
+                console.log(fasilitas); 
+
+
                 $('#detailMRoom').html(`
                 <div class="detail-meeting-room">
                                             <div class="row">
@@ -206,20 +202,20 @@
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <p class="text-left font-size-11 text-uppercase text-bold" style="margin-top: 1rem">Room Facility</p>  
-                                                            <ol class="nav d-block nav-stacked" id="coba">
-                                                                `+li+`
-                                                                <li class="nav-item"><p class="text-capitalize mb-0">`+fasilitas+`</p></li>
+                                                            <ol class="nav d-block nav-stacked" id="coba">                                                              
+                                                                `+text+`
                                                             </ol>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    </div>
                                             </div>
                                         </div>
                 `);
             },
             }),
 
-                console.log('hello em')
+            
+            console.log('hello em')
             
         });
     </script>

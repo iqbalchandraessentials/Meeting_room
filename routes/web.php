@@ -32,34 +32,34 @@ Route::get('/dashboard', function () {
 // MEETING ROOM
 
 Route::get('/meeting-room', [App\Http\Controllers\RoomMeetingController::class, 'index'])->name('meeting-room');
-Route::get('/meeting-room/menu/category/create', [App\Http\Controllers\RoomMeetingController::class, 'create'])->name('add-meeting-room');
-Route::post('/meeting-room/menu/category/store', [App\Http\Controllers\RoomMeetingController::class, 'store'])->name('store-meeting-room');
-Route::get('/meeting-room/menu/category/{id}', [App\Http\Controllers\RoomMeetingController::class, 'destroy'])->name('delete-meeting-room');
-Route::get('/meeting-room/menu/category/edit/{id}', [App\Http\Controllers\RoomMeetingController::class, 'detail'])->name('edit-meeting-room');
-Route::post('/meeting-room/menu/category/update/{id}', [App\Http\Controllers\RoomMeetingController::class, 'update'])->name('update-meeting-room');
+Route::get('/meeting-room/create', [App\Http\Controllers\RoomMeetingController::class, 'create'])->name('add-meeting-room');
+Route::post('/meeting-room/store', [App\Http\Controllers\RoomMeetingController::class, 'store'])->name('store-meeting-room');
+Route::get('/meeting-room/{id}', [App\Http\Controllers\RoomMeetingController::class, 'destroy'])->name('delete-meeting-room');
+Route::get('/meeting-room/edit/{id}', [App\Http\Controllers\RoomMeetingController::class, 'detail'])->name('edit-meeting-room');
+Route::post('/meeting-room/update/{id}', [App\Http\Controllers\RoomMeetingController::class, 'update'])->name('update-meeting-room');
 
 
-Route::post('/meeting-room/menu/photo/update', [App\Http\Controllers\RoomMeetingController::class, 'uploadGallery'])->name('update-photo-meeting-room');
-Route::get('/meeting-room/delete/galleries/{id}', [App\Http\Controllers\RoomMeetingController::class, 'deleteGallery'])->name('meeting-room-gallery-delete');
+Route::post('/meeting-room/photo/update', [App\Http\Controllers\RoomMeetingController::class, 'uploadGallery'])->name('update-photo-meeting-room');
+Route::get('/meeting-room/delete/photo/{id}', [App\Http\Controllers\RoomMeetingController::class, 'deleteGallery'])->name('meeting-room-gallery-delete');
 
 // facility
 
 // menu
 Route::get('/facilities/menu', [App\Http\Controllers\MenuFacilityController::class, 'index'])->name('menu-facilities');
-Route::get('/facilities/menu/category/create', [App\Http\Controllers\MenuFacilityController::class, 'create'])->name('add-menu-facilities');
-Route::post('/facilities/menu/category/store', [App\Http\Controllers\MenuFacilityController::class, 'store'])->name('store-menu-facilities');
-Route::get('/facilities/menu/category/{id}', [App\Http\Controllers\MenuFacilityController::class, 'destroy'])->name('delete-menu-facilities');
-Route::get('/facilities/menu/category/edit/{id}', [App\Http\Controllers\MenuFacilityController::class, 'edit'])->name('edit-menu-facilities');
-Route::post('/facilities/menu/category/update/{id}', [App\Http\Controllers\MenuFacilityController::class, 'update'])->name('update-menu-facilities');
+Route::get('/facilities/menu/create', [App\Http\Controllers\MenuFacilityController::class, 'create'])->name('add-menu-facilities');
+Route::post('/facilities/menu/store', [App\Http\Controllers\MenuFacilityController::class, 'store'])->name('store-menu-facilities');
+Route::get('/facilities/menu/{id}', [App\Http\Controllers\MenuFacilityController::class, 'destroy'])->name('delete-menu-facilities');
+Route::get('/facilities/menu/edit/{id}', [App\Http\Controllers\MenuFacilityController::class, 'edit'])->name('edit-menu-facilities');
+Route::post('/facilities/menu/update/{id}', [App\Http\Controllers\MenuFacilityController::class, 'update'])->name('update-menu-facilities');
 
 
 // category
-Route::get('/facilities/categories', [App\Http\Controllers\categoryFacilityController::class, 'index'])->name('category-facilities');
-Route::get('/facilities/categories/create', [App\Http\Controllers\categoryFacilityController::class, 'create'])->name('add-category-facilities');
-Route::post('/facilities/categories/store', [App\Http\Controllers\categoryFacilityController::class, 'store'])->name('store-category-facilities');
-Route::get('/facilities/categories/{id}', [App\Http\Controllers\categoryFacilityController::class, 'destroy'])->name('delete-category-facilities');
-Route::get('/facilities/categories/edit/{id}', [App\Http\Controllers\categoryFacilityController::class, 'edit'])->name('edit-category-facilities');
-Route::post('/facilities/categories/update/{id}', [App\Http\Controllers\categoryFacilityController::class, 'update'])->name('update-category-facilities');
+Route::get('/facilities/category', [App\Http\Controllers\categoryFacilityController::class, 'index'])->name('category-facilities');
+Route::get('/facilities/category/create', [App\Http\Controllers\categoryFacilityController::class, 'create'])->name('add-category-facilities');
+Route::post('/facilities/category/store', [App\Http\Controllers\categoryFacilityController::class, 'store'])->name('store-category-facilities');
+Route::get('/facilities/category/{id}', [App\Http\Controllers\categoryFacilityController::class, 'destroy'])->name('delete-category-facilities');
+Route::get('/facilities/category/edit/{id}', [App\Http\Controllers\categoryFacilityController::class, 'edit'])->name('edit-category-facilities');
+Route::post('/facilities/category/update/{id}', [App\Http\Controllers\categoryFacilityController::class, 'update'])->name('update-category-facilities');
 
 
 
@@ -70,9 +70,10 @@ Route::post('/facilities/categories/update/{id}', [App\Http\Controllers\category
 Route::get('/book-now', [App\Http\Controllers\booking\BookingController::class, 'index'])->name('book-now');
 Route::post('/book-now/store', [App\Http\Controllers\booking\BookingController::class, 'store'])->name('store-book-now');
 Route::get('/book-now/detail/{id}', [App\Http\Controllers\booking\BookingController::class, 'detail'])->name('detail-book-now');
-// Route::get('/book-now', function () {
-//     return view('Booking.bookNow');
-// });
+Route::post('/book-now/update/{id}', [App\Http\Controllers\booking\BookingController::class, 'update'])->name('update-book-now');
+Route::post('/book-now/fnb/store', [App\Http\Controllers\booking\BookingController::class, 'storeMenuFnb'])->name('fnbStore-book-now');
+Route::get('/book-now/deleteFNB/{id}', [App\Http\Controllers\booking\BookingController::class, 'deleteFNB'])->name('deleteFNB-book-now');
+
 Route::get('/book-now/book', function () {
     return view('Booking._book');
 });
