@@ -51,16 +51,24 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Meeting time</label>
+                                        <input type="text" id="start" name="start" style="display: none">
+                                        <input type="text" id="end" name="end" style="display: none">
                                         <div class="row align-items-center">
                                             <div class="col-sm-5 col-5">
-                                                <input type="text" class="form-control" id="start" name="start" readonly>
+                                                <input type="text" class="form-control" id="mulai" readonly>
                                             </div>
                                             <div class="col-sm-2 col-2 text-center">
                                                 <p class="mb-0">Until</p>
                                             </div>
                                             <div class="col-sm-5 col-5">
-                                                <input type="text" class="form-control" id="untill" name="untill" readonly>
+                                                <input type="text" class="form-control" id="sampai" readonly>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-5">
+                                        <label>Title Meeting</label>
+                                        <div class="">
+                                           <input type="text" class="form-control" autocomplete="off" autofocus name="title">
                                         </div>
                                     </div>
                                     <div class="form-group mb-0">
@@ -136,9 +144,11 @@
 
                     
                     $('#modal-fill').modal('show');
+                    $("#start").val(info.startStr);
+                    $("#end").val(info.endStr);
                     $("#date").val(info.startStr.substring(0, 10));
-                    $("#start").val(info.startStr.substr(11, 5));
-                    $("#untill").val(info.endStr.substr(11, 5));
+                    $("#mulai").val(info.startStr.substr(11, 5));
+                    $("#sampai").val(info.endStr.substr(11, 5));
                     console.log('selected ' + info.startStr + ' to ' + info.endStr);
 
                 },
@@ -150,7 +160,7 @@
                 //         container: 'body'
                 //     });
                 // },
-                events: 'https://fullcalendar.io/demo-events.json'
+                events: 'http://meeting-room.test/api/calendar'
             });
             calendar.render();
         });

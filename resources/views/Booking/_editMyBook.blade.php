@@ -14,9 +14,10 @@
 @section('content')
     <div class="row">
         <div class="col-sm-8">
+            @foreach ($rooms as $room)
             <div class="box">
                 <div class="box-header">
-                    <h4 class="box-title">Basic Info</h4>
+                    <h4 class="box-title">Title : {{$room->title}}</h4>
                 </div>
                 <div class="box-body">
                     <div class="form-group mb-0">
@@ -33,7 +34,6 @@
                             </div>
                         </div>
                     </div>
-                    @foreach ($rooms as $room)
                         
                     
                     <div class="form-group">
@@ -49,13 +49,13 @@
                         <label>Meeting time</label>
                         <div class="row align-items-center">
                             <div class="col-sm-5 col-5">
-                                <input type="text" class="form-control" value="{{$room->start}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{substr($room->start,11, 5)}}" placeholder="" readonly>
                             </div>
                             <div class="col-sm-2 col-2 text-center">
                                 <p class="mb-0">Until</p>
                             </div>
                             <div class="col-sm-5 col-5">
-                                <input type="text" class="form-control" value="{{$room->untill}}" placeholder="" readonly>
+                                <input type="text" class="form-control" value="{{substr($room->end,11, 5)}}" placeholder="" readonly>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <label>Meeting Description</label>
                         <div class="row align-items-center">
                             <div class="col-sm-12 col-12">
-                                <textarea class="form-control" name="description" rows="3" cols="3" required></textarea>
+                                <textarea class="form-control" name="description" rows="3" cols="3">{{$room->description}}</textarea>
                             </div>
                         </div>
                     </div>

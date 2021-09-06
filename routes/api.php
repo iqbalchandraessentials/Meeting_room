@@ -23,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('rooms-meeting', [RoomMeetingController::class, 'apiDetail']);
 Route::get('menu-fnb', [BookingController::class, 'apiMenuFnb']);
 Route::get('placeholder-fnb', [BookingController::class, 'apiNotesFnb']);
+Route::get('calendar', [BookingController::class, 'calendar']);

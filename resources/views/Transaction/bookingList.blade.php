@@ -64,62 +64,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $no=1;
+                                @endphp
+                                @foreach ($list as $booking)
                                 <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-left text-nowrap">24 Jun 2021</td>
-                                    <td class="text-left text-nowrap">09:00 - 10:30</td>
-                                    <td class="text-left text-nowrap">Large Meeting Room</td>
-                                    <td class="text-left text-nowrap">Dorota Lysistrata Dubravka</td>
-                                    <td class="text-left text-nowrap">dorota.lysistrata@dubravka.com</td>
-                                    <td class="text-center text-success"><span class="btn btn-success btn-block btn-rounded">Meeting Started</span></td>
+                                    <td class="text-center">{{$no}}</td>
+                                    <td class="text-left text-nowrap">{{$booking->date}}</td>
+                                    <td class="text-left text-nowrap">{{$booking->start}} - {{$booking->untill}}</td>
+                                    <td class="text-left text-nowrap">{{$booking->room->name}}</td>
+                                    <td class="text-left text-nowrap">{{$booking->pic_name}}</td>
+                                    <td class="text-left text-nowrap">{{$booking->pic_email}}</td>
+                                    <td class="text-center text-success">
+                                        <span class="btn 
+                                        {{ $booking->status == "APPROVE" ? 'btn-success' : 'btn-warning'}}
+                                        btn-block btn-rounded">{{$booking->status}}</span></td>
                                     <td class="text-center">
-                                        <a href="{{ url('/booking-list/view') }}" data-toggle="tooltip" data-placement="bottom" title="View">
+                                        <a href="{{ route('detail-book-now', $booking->code) }}" data-toggle="tooltip" data-placement="bottom" title="View">
                                             <i class="ti-eye"></i>
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="text-center">2</td>
-                                    <td class="text-left text-nowrap">24 Jun 2021</td>
-                                    <td class="text-left text-nowrap">11:00 - 13:00</td>
-                                    <td class="text-left text-nowrap">Large Meeting Room</td>
-                                    <td class="text-left text-nowrap">Kerberos Aygun Olga</td>
-                                    <td class="text-left text-nowrap">kerberos.aygun@olga.com</td>
-                                    <td class="text-center text-success"><span class="btn btn-primary btn-block btn-rounded">Approve</span></td>
-                                    <td class="text-center">
-                                        <a href="{{ url('/booking-list/view') }}" data-toggle="tooltip" data-placement="bottom" title="View">
-                                            <i class="ti-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">3</td>
-                                    <td class="text-left text-nowrap">25 Jun 2021</td>
-                                    <td class="text-left text-nowrap">11:00 - 13:00</td>
-                                    <td class="text-left text-nowrap">Large Meeting Room</td>
-                                    <td class="text-left text-nowrap">Nitin Claudie Nicol</td>
-                                    <td class="text-left text-nowrap">nitin.claudie@nicol.com</td>
-                                    <td class="text-center text-success"><span class="btn btn-warning btn-block btn-rounded">Waiting</span></td>
-                                    <td class="text-center">
-                                        <a href="{{ url('/booking-list/view') }}" data-toggle="tooltip" data-placement="bottom" title="View">
-                                            <i class="ti-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td class="text-left text-nowrap">26 Jun 2021</td>
-                                    <td class="text-left text-nowrap">11:00 - 13:00</td>
-                                    <td class="text-left text-nowrap">Large Meeting Room</td>
-                                    <td class="text-left text-nowrap">Quinctilius Malachi Ema</td>
-                                    <td class="text-left text-nowrap">quinctilius.malachi@ema.com</td>
-                                    <td class="text-center text-success text-nowrap"><span class="btn btn-danger btn-block btn-rounded">Room Issue</span></td>
-                                    <td class="text-center">
-                                        <a href="{{ url('/booking-list/view') }}" data-toggle="tooltip" data-placement="bottom" title="View">
-                                            <i class="ti-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @php
+                                    $no++;
+                                @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

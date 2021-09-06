@@ -9,7 +9,7 @@ class booking_now extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'code', 'date', 'start', 'untill', 'id_room', 'pic_name', 'pic_email', 'pic_phone', 'fnb', 'description', 'status'
+        'title',  'code', 'date', 'start', 'end', 'id_room', 'pic_name', 'pic_email', 'pic_phone', 'description', 'status'
     ];
     protected $hidden = [];
 

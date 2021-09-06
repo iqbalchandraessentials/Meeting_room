@@ -74,6 +74,16 @@ Route::post('/book-now/update/{id}', [App\Http\Controllers\booking\BookingContro
 Route::post('/book-now/fnb/store', [App\Http\Controllers\booking\BookingController::class, 'storeMenuFnb'])->name('fnbStore-book-now');
 Route::get('/book-now/deleteFNB/{id}', [App\Http\Controllers\booking\BookingController::class, 'deleteFNB'])->name('deleteFNB-book-now');
 
+// TRANSACTION
+Route::get('/booking-list', [App\Http\Controllers\booking\BookingController::class, 'booking_list'])->name('booking-list');
+Route::get('/booking-list/view', function () {
+    return view('Transaction._viewBookingList');
+});
+Route::get('/visitor', function () {
+    return view('Transaction.visitor');
+});
+
+
 Route::get('/book-now/book', function () {
     return view('Booking._book');
 });
@@ -103,16 +113,7 @@ Route::get('/my-booking/rearange', function () {
 // });
 
 
-// TRANSACTION
-Route::get('/booking-list', function () {
-    return view('Transaction.bookingList');
-});
-Route::get('/booking-list/view', function () {
-    return view('Transaction._viewBookingList');
-});
-Route::get('/visitor', function () {
-    return view('Transaction.visitor');
-});
+
 
 
 // FOOD & BEVERAGE

@@ -34,6 +34,16 @@ class BookingController extends Controller
         ]);
     }
 
+
+    public function booking_list()
+    {
+        $list = booking_now::all();
+        return view('Transaction.bookingList', [
+            'list' => $list
+        ]);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -148,5 +158,12 @@ class BookingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function calendar()
+    {
+        $data = booking_now::select('title', 'start', 'end')->get();
+        // dd($data);
+        return response()->json($data);
     }
 }
