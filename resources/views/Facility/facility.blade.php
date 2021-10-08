@@ -41,6 +41,7 @@
                         </div>
                         <div class="col-6 text-right">
                             <a href="{{ route('add-menu-facilities') }}" class="btn btn-bold btn-pure btn-info">Add New Facility</a>
+                            <a href="{{ route('print-facilities') }}" target="_blank" class="btn btn-bold btn-pure btn-success">Print <i class="ti-printer"></i></a>
                         </div>
                     </div>
                 </div>
@@ -58,12 +59,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                $no = 1;
-                            @endphp
+
                                 @foreach ($menus as $menu)   
                                 <tr>
-                                    <td class="text-center">{{$no}}</td>
+                                    <td class="text-center">{{$loop->iteration}}</td>
                                     <td class="text-left text-nowrap">{{$menu->name}}</td>
                                     <td class="text-left text-nowrap">{{ $menu->category->name }}</td>
                                     <td class="text-left">{{$menu->description}}</td>
@@ -81,9 +80,6 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @php
-                                $no++;
-                            @endphp
                                 @endforeach
                             </tbody>
                         </table>

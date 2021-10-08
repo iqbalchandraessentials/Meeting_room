@@ -54,11 +54,11 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th class="text-left">Title</th>
                                     <th class="text-left">Date</th>
                                     <th class="text-left">Time</th>
                                     <th class="text-left">Room</th>
                                     <th class="text-left">PIC Name</th>
-                                    <th class="text-left">PIC Email</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -70,13 +70,13 @@
                                 @foreach ($list as $booking)
                                 <tr>
                                     <td class="text-center">{{$no}}</td>
+                                    <td class="text-left text-nowrap">{{$booking->title}}</td>
                                     <td class="text-left text-nowrap">{{$booking->date}}</td>
-                                    <td class="text-left text-nowrap">{{$booking->start}} - {{$booking->untill}}</td>
+                                    <td class="text-left text-nowrap">{{substr($booking->start,11, 5)}} - {{substr($booking->end,11, 5)}}</td>
                                     <td class="text-left text-nowrap">{{$booking->room->name}}</td>
                                     <td class="text-left text-nowrap">{{$booking->pic_name}}</td>
-                                    <td class="text-left text-nowrap">{{$booking->pic_email}}</td>
                                     <td class="text-center text-success">
-                                        <span class="btn 
+                                        <span class="btn text-lowercase
                                         {{ $booking->status == "APPROVE" ? 'btn-success' : 'btn-warning'}}
                                         btn-block btn-rounded">{{$booking->status}}</span></td>
                                     <td class="text-center">

@@ -29,6 +29,18 @@ class MenuFacilityController extends Controller
         );
     }
 
+    public function print()
+    {
+        $data = menu_facility::all();
+        return view(
+            'Facility.print',
+            [
+                'data' => $data,
+
+            ]
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      *

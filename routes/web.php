@@ -46,6 +46,7 @@ Route::get('/meeting-room/delete/photo/{id}', [App\Http\Controllers\RoomMeetingC
 
 // menu
 Route::get('/facilities/menu', [App\Http\Controllers\MenuFacilityController::class, 'index'])->name('menu-facilities');
+Route::get('/facilities/print', [App\Http\Controllers\MenuFacilityController::class, 'print'])->name('print-facilities');
 Route::get('/facilities/menu/create', [App\Http\Controllers\MenuFacilityController::class, 'create'])->name('add-menu-facilities');
 Route::post('/facilities/menu/store', [App\Http\Controllers\MenuFacilityController::class, 'store'])->name('store-menu-facilities');
 Route::get('/facilities/menu/{id}', [App\Http\Controllers\MenuFacilityController::class, 'destroy'])->name('delete-menu-facilities');
