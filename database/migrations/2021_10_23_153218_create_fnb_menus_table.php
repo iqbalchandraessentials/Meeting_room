@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryFnB extends Migration
+class CreateFnbMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateCategoryFnB extends Migration
      */
     public function up()
     {
-        Schema::create('category_fnb', function (Blueprint $table) {
+        Schema::create('fnb_menus', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_category');
             $table->string('name');
             $table->longText('description');
             $table->string('status')->default('ACTIVE');
@@ -30,6 +31,6 @@ class CreateCategoryFnB extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_fnb');
+        Schema::dropIfExists('fnb_menus');
     }
 }

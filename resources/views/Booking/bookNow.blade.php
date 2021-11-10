@@ -160,7 +160,7 @@
                 //         container: 'body'
                 //     });
                 // },
-                events: 'http://meeting-room.test/api/calendar'
+                events: 'http://meeting_room.test/api/calendar'
             });
             calendar.render();
         });
@@ -169,7 +169,7 @@
         $('.modal-body').on('change','#selectMRoom', function() {
             
             $.ajax({
-                url : 'http://meeting-room.test/api/rooms-meeting',
+                url : 'http://meeting_room.test/api/rooms-meeting',
                 type : 'get',
                 dataType: "json",
                 data : {
@@ -185,8 +185,6 @@
              text += `<li class="nav-item"><p class="text-capitalize mb-0">${fasilitas[i]}</p></li>`
               }
                 console.log(fasilitas); 
-
-
                 $('#detailMRoom').html(`
                 <div class="detail-meeting-room">
                                             <div class="row">

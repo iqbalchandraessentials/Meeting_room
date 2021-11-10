@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacility extends Migration
+class CreateFacilityCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateFacility extends Migration
      */
     public function up()
     {
-        Schema::create('list_facility', function (Blueprint $table) {
+        Schema::create('facility_categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_category');
             $table->string('name');
-            $table->longText('description');
+            $table->string('status')->default('ACTIVE');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ class CreateFacility extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_facility');
+        Schema::dropIfExists('facility_categories');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuFnB extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateMenuFnB extends Migration
      */
     public function up()
     {
-        Schema::create('menu_fnb', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_category');
             $table->string('name');
-            $table->longText('description');
+            $table->integer('capacity');
+            $table->string('location');
+            $table->string('facility');
+            $table->string('hours_availibility');
+            $table->string('days_availibility');
             $table->string('status')->default('ACTIVE');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateMenuFnB extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_fnb');
+        Schema::dropIfExists('rooms');
     }
 }

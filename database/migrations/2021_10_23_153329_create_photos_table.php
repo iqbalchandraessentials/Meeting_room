@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhotoRoom extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePhotoRoom extends Migration
      */
     public function up()
     {
-        Schema::create('photo_room', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->string('photos');
             $table->integer('room_id');
@@ -28,6 +28,6 @@ class CreatePhotoRoom extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photo_room');
+        Schema::dropIfExists('photos');
     }
 }
