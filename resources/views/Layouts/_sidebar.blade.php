@@ -10,60 +10,32 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="header nav-small-cap text-uppercase">CLUBS</li>
-
-            <li class="treeview">
+            <li class="header nav-small-cap text-uppercase">MEETING ROOM</li>
+            <li class="treeview {{ Request::segment(1) === 'meeting-room' ? 'active' : '' }}">
                 <a href="#">
                     <i class="ti-blackboard"></i>
-                    <span>Club List</span>
+                    <span>Room Resources</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="ti-more"></i>
-                            <span>Club List</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="#">
-                                    <i class="ti-plus"></i>
-                                    <span>Add Club</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="ti-import"></i>
-                                    <span>Import Clubs</span>
-                                </a>
-                            </li>
-                            <li class="{{ Request::segment(1) === 'meeting-room' && Request::segment(2) === null || Request::segment(2) === 'details' ? 'active' : '' }}">
-                                <a href="{{ route('meeting-room') }}">
-                                    <i class="ti-more"></i>List Club
-                                </a>
-                            </li>
-                            <!-- Add more sub-submenu items as needed -->
-                        </ul>
-                    </li>
-                    <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === 'menu' || Request::segment(2) === 'add-new' ? 'active' : '' }}">
-                        <a href="{{ route('menu-facilities') }}">
-                            <i class="ti-more"></i>Reported Club List
+                    {{-- <li class="{{ Request::segment(1) === 'meeting-room' && Request::segment(2) === 'add-new' ? 'active' : '' }}">
+                        <a href="{{ url('meeting-room/add-new') }}"><i class="ti-more"></i>Add New</a>
+                    </li> --}}
+                    <li class="{{ Request::segment(1) === 'meeting-room' && Request::segment(2) === null || Request::segment(2) === 'details' ? 'active' : '' }}">
+                        <a href="{{ route('meeting-room') }}">
+                            <i class="ti-more"></i>List Meeting Room
                         </a>
                     </li>
                 </ul>
             </li>
-            
 
             {{-- facilities --}}
             <li class="treeview {{ Request::segment(1) === 'facilities' ? 'active' : '' }}">
                 <a href="#">
                     <i class="ti-panel"></i>
-                    <span>Categories</span>
+                    <span>Facilities</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
@@ -71,23 +43,18 @@
                 <ul class="treeview-menu">
                     <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === 'menu' || Request::segment(2) === 'add-new' ? 'active' : '' }}">
                         <a href="{{ route('menu-facilities') }}">
-                            <i class="ti-more"></i>New Categories
+                            <i class="ti-more"></i>List Facilities
                         </a>
                     </li>
                     <li class="{{ Request::segment(1) === 'facilities' && Request::segment(2) === 'categories' ? 'active' : '' }}">
                         <a href="{{ route('category-facilities') }}">
-                            <i class="ti-more"></i>New Sub Categories
+                            <i class="ti-more"></i>Categories
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="{{ Request::segment(1) === 'my-booking' ? 'active' : '' }}">
-                <a href="{{ url('my-booking') }}">
-                    <i class="ti-calendar"></i>
-                    <span>Default Image</span>
-                </a>
-            </li>
+            
             
             {{-- foond and bravage --}} 
             
