@@ -9,7 +9,7 @@
         </div>
         <!-- logo-->
         <div class="logo-lg">
-            <span class="text-bold">Booking MS</span>
+            <span class="text-bold">Sellon Clubs</span>
         </div>
     </a>
     <!-- Header Navbar -->
